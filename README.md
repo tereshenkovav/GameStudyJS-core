@@ -1,8 +1,8 @@
-Ядро движка для проекта
+РЇРґСЂРѕ РґРІРёР¶РєР° РґР»СЏ РїСЂРѕРµРєС‚Р°
 
 https://github.com/tereshenkovav/GameStudyJS
 
-и использующих его игр, например
+Рё РёСЃРїРѕР»СЊР·СѓСЋС‰РёС… РµРіРѕ РёРіСЂ, РЅР°РїСЂРёРјРµСЂ
 
 https://github.com/tereshenkovav/TrixieDiamonds32
 
