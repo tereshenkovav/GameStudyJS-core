@@ -26,8 +26,8 @@ protected:
     bool showborder ;
     float fscalex ;
     float fscaley ;
-    int fx ;
-    int fy ;
+    float fx ;
+    float fy ;
 
     QMap<QString,QScriptValue> tags ;
 
@@ -50,6 +50,12 @@ public slots:
     void renderTo(int x, int y) ;
     void render() ;
     void setXY(int x, int y) ;
+    void setX(int x) ;
+    void setX(float x) ;
+    void setY(int y) ;
+    void setY(float y) ;
+    float getX() ;
+    float getY() ;
     void mirrorHorz(bool mirror) ;
     void mirrorVert(bool mirror) ;
     void setBordered(bool bordered) ;

@@ -86,6 +86,36 @@ void Sprite::setXY(int x, int y)
     fy = y ;
 }
 
+float Sprite::getX()
+{
+    return fx ;
+}
+
+float Sprite::getY()
+{
+    return fy ;
+}
+
+void Sprite::setX(int x)
+{
+    fx = x ;
+}
+
+void Sprite::setX(float x)
+{
+    fx = x ;
+}
+
+void Sprite::setY(int y)
+{
+    fy = y ;
+}
+
+void Sprite::setY(float y)
+{
+    fy = y ;
+}
+
 void Sprite::mirrorHorz(bool mirror) {
     mirrhorz=mirror ;
 }
