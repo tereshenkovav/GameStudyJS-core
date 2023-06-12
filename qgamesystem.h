@@ -30,10 +30,13 @@ public:
     void clearTimers() ;
 
     static QString ScriptValue2String(const QScriptValue & val) ;
+    QString getFilenameByLanguageIfExist(QString filename) ;
 
 private:
     QScriptEngine * engine ;
     QList<QTimer*> timers ;
+    QString currentlang ;
+    QStringList languages ;
 
 signals:
     void writeMessage(QString msg) ;
@@ -47,6 +50,10 @@ public slots:
     QScriptValue loadObjectFromAppData(QString filename) ;
     void setTimeout(QString code, int ms) ;
     void setInterval(QString code, int ms) ;
+    void setUsedLanguages(QScriptValue arr) ;
+    void setCurrentLanguage(QString lang) ;
+    void switchCurrentLanguage() ;
+    QString getCurrentLanguage() ;
 };
 
 #endif // QGAMESYSTEM_H

@@ -317,7 +317,7 @@ Game *Game::createNoGame()
 QScriptValue Game::loadSprite(QString filename)
 {
     Sprite * spr = new Sprite(this);
-    spr->loadFromFile(filename) ;
+    spr->loadFromFile(sys->getFilenameByLanguageIfExist("sprites/"+filename)) ;
     sprites.append(spr);
 
     return engine.newQObject(spr) ;
@@ -329,7 +329,7 @@ QScriptValue Game::loadSpritePCX8bit(QString filename, bool usetransp)
 
     sf::Texture tex ;
     PcxTexLoader loader ;
-    if (loader.loadFile("sprites/"+filename,usetransp)) {
+    if (loader.loadFile(sys->getFilenameByLanguageIfExist("sprites/"+filename),usetransp)) {
         tex.create(loader.getWidth(),loader.getHeight()) ;
         tex.update(loader.getData()) ;
     }
@@ -341,7 +341,7 @@ QScriptValue Game::loadSpritePCX8bit(QString filename, bool usetransp)
 
 QScriptValue Game::loadSound(QString filename)
 {
-    Sound * snd = new Sound(filename,this);
+    Sound * snd = new Sound(sys->getFilenameByLanguageIfExist("sounds/"+filename),this);
     sounds.append(snd);
 
     return engine.newQObject(snd) ;
@@ -363,7 +363,7 @@ QScriptValue Game::loadAnimationFromFiles(QScriptValue arr, int fps)
     if (arr.isArray()) {
         QStringList list ;
         for (int i=0; i<arr.property("length").toInt32(); i++)
-           list.append(arr.property(i).toString()) ;
+           list.append(sys->getFilenameByLanguageIfExist("sprites/"+arr.property(i).toString())) ;
 
         Sprite * ani = new Animation(list,fps,this);
         sprites.append(ani);
@@ -376,7 +376,7 @@ QScriptValue Game::loadAnimationFromFiles(QScriptValue arr, int fps)
 
 QScriptValue Game::loadAnimation(QString filename, int w, int h, int framecount, int fps)
 {
-    Sprite * ani = new Animation(filename,w,h,framecount,fps,true,this);
+    Sprite * ani = new Animation(sys->getFilenameByLanguageIfExist("sprites/"+filename),w,h,framecount,fps,true,this);
     sprites.append(ani);
 
     return engine.newQObject(ani) ;
@@ -384,7 +384,7 @@ QScriptValue Game::loadAnimation(QString filename, int w, int h, int framecount,
 
 QScriptValue Game::loadAnimation(QString filename, int framecount, int fps)
 {
-    Sprite * ani = new Animation(filename,-1,-1,framecount,fps,true,this);
+    Sprite * ani = new Animation(sys->getFilenameByLanguageIfExist("sprites/"+filename),-1,-1,framecount,fps,true,this);
     sprites.append(ani);
 
     return engine.newQObject(ani) ;
@@ -392,7 +392,7 @@ QScriptValue Game::loadAnimation(QString filename, int framecount, int fps)
 
 QScriptValue Game::loadAnimationPCX8bit(QString filename, int w, int h, int framecount, int fps, int usetransp)
 {
-    Sprite * ani = new Animation(filename,w,h,framecount,fps,usetransp,this);
+    Sprite * ani = new Animation(sys->getFilenameByLanguageIfExist("sprites/"+filename),w,h,framecount,fps,usetransp,this);
     sprites.append(ani);
 
     return engine.newQObject(ani) ;
@@ -400,7 +400,7 @@ QScriptValue Game::loadAnimationPCX8bit(QString filename, int w, int h, int fram
 
 QScriptValue Game::loadAnimationPCX8bit(QString filename, int framecount, int fps, int usetransp)
 {
-    Sprite * ani = new Animation(filename,-1,-1,framecount,fps,usetransp,this);
+    Sprite * ani = new Animation(sys->getFilenameByLanguageIfExist("sprites/"+filename),-1,-1,framecount,fps,usetransp,this);
     sprites.append(ani);
 
     return engine.newQObject(ani) ;

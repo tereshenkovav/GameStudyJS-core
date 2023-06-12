@@ -3,7 +3,7 @@
 Sound::Sound(QString filename, Game * game, QObject *parent) : QObject(parent)
 {
     this->game = game ;
-    buf.loadFromFile(("sounds/"+filename).toStdString()) ;
+    buf.loadFromFile(filename.toStdString()) ;
     snd.setBuffer(buf);
 }
 

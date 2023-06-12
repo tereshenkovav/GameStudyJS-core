@@ -36,7 +36,7 @@ Sprite::Sprite(Game *game, QObject *parent) : QObject(parent)
 void Sprite::loadFromFile(const QString &filename)
 {
     sf::Texture tex ;
-    tex.loadFromFile(("sprites/"+filename).toStdString()) ;
+    tex.loadFromFile(filename.toStdString()) ;
     loadFromTexture(tex) ;    
 }
 

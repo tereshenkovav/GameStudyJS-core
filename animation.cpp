@@ -15,7 +15,7 @@ Animation::Animation(const QStringList & files, int fps, Game *game, QObject *pa
 
     frames = new sf::Texture[count] ;
     for (int i=0; i<count; i++) {
-        frames[i].loadFromFile(("sprites/"+files[i]).toStdString()) ;
+        frames[i].loadFromFile(files[i].toStdString()) ;
         frames[i].setSmooth(true);
     }
 
@@ -37,11 +37,11 @@ Animation::Animation(const QString & filename, int w, int h, int framecount, int
     sf::Image source ;
     if (filename.endsWith(".pcx")) {
         PcxTexLoader loader ;
-        if (loader.loadFile("sprites/"+filename,usetransp))
+        if (loader.loadFile(filename,usetransp))
             source.create(loader.getWidth(),loader.getHeight(),loader.getData()) ;
     }
     else
-        source.loadFromFile(("sprites/"+filename).toStdString()) ;    
+        source.loadFromFile(filename.toStdString()) ;
 
     sf::IntRect rect ;
     if ((w<0)||(h<0)) {

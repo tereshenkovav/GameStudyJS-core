@@ -19,7 +19,8 @@ QScriptValue json2script(QScriptEngine *engine, const QJsonValue & val) {
 
 QGameSystem::QGameSystem(QScriptEngine *engine)
 {
-    this->engine = engine ;    
+    this->engine = engine ;
+    currentlang="" ;
 }
 
 void QGameSystem::clearTimers()
@@ -58,6 +59,16 @@ QString QGameSystem::ScriptValue2String(const QScriptValue &obj)
     return "" ;
 }
 
+QString QGameSystem::getFilenameByLanguageIfExist(QString filename)
+{
+    if (currentlang=="") return filename ;
+    QFileInfo fi(filename) ;
+    QString ext = fi.suffix() ;
+    QString langfilename = filename.left(filename.length()-ext.length()-1)+"."+currentlang+"."+ext ;
+    if (QFile::exists(langfilename)) return langfilename ;
+    return filename ;
+}
+
 void QGameSystem::saveObjectToAppData(QString filename, QScriptValue obj)
 {
     QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) ;
@@ -68,7 +79,7 @@ void QGameSystem::saveObjectToAppData(QString filename, QScriptValue obj)
 
 void QGameSystem::saveObject(QString filename, QScriptValue obj)
 {
-    QFile file(filename) ;
+    QFile file(getFilenameByLanguageIfExist(filename)) ;
     file.open(QIODevice::WriteOnly);
     file.write(ScriptValue2String(obj).toUtf8()) ;
     file.close() ;
@@ -81,7 +92,7 @@ QScriptValue QGameSystem::loadObjectFromAppData(QString filename)
 
 QScriptValue QGameSystem::loadObject(QString filename)
 {
-    QFile file(filename);
+    QFile file(getFilenameByLanguageIfExist(filename));
     if (file.exists()&&file.open(QIODevice::ReadOnly)) {
         QString cmd = "var v = "+file.readAll()+"; v ;" ;
         QScriptValue v = engine->evaluate(cmd) ;
@@ -128,6 +139,32 @@ void QGameSystem::setInterval(QString code, int ms)
     connect(timer,SIGNAL(timeout()),new TimerEvent(engine,code,false),SLOT(execCode())) ;
     timer->start(ms) ;
     timers.append(timer) ;
+}
+
+void QGameSystem::setUsedLanguages(QScriptValue arr)
+{
+    languages.clear() ;
+    for (int i=0; i<arr.property("length").toInt32(); i++)
+       languages.append(arr.property(i).toString()) ;
+}
+
+void QGameSystem::setCurrentLanguage(QString lang)
+{
+    if (languages.contains(lang)) currentlang = lang ;
+}
+
+void QGameSystem::switchCurrentLanguage()
+{
+    if (languages.count()==0) return ;
+    int idx = languages.indexOf(currentlang) ;
+    idx++ ;
+    if (idx>=languages.count()) idx=0 ;
+    currentlang = languages[idx] ;
+}
+
+QString QGameSystem::getCurrentLanguage()
+{
+    return currentlang ;
 }
 
 TimerEvent::TimerEvent(QScriptEngine *engine, QString code, bool isonce)
