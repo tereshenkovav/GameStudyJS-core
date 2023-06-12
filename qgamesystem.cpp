@@ -17,10 +17,12 @@ QScriptValue json2script(QScriptEngine *engine, const QJsonValue & val) {
     return engine->newVariant(val.toVariant()) ;
 }
 
+QString currentlang="" ;
+QStringList languages ;
+
 QGameSystem::QGameSystem(QScriptEngine *engine)
 {
-    this->engine = engine ;
-    currentlang="" ;
+    this->engine = engine ;    
 }
 
 void QGameSystem::clearTimers()

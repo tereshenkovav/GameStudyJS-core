@@ -35,8 +35,6 @@ public:
 private:
     QScriptEngine * engine ;
     QList<QTimer*> timers ;
-    QString currentlang ;
-    QStringList languages ;
 
 signals:
     void writeMessage(QString msg) ;
