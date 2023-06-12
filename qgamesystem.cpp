@@ -148,6 +148,7 @@ void QGameSystem::setUsedLanguages(QScriptValue arr)
     languages.clear() ;
     for (int i=0; i<arr.property("length").toInt32(); i++)
        languages.append(arr.property(i).toString()) ;
+    if (languages.count()>0) currentlang=languages[0] ;
 }
 
 void QGameSystem::setCurrentLanguage(QString lang)
