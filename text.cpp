@@ -42,3 +42,8 @@ void Text::setColor(int r, int g, int b)
 {
     m_text.setFillColor(sf::Color(r,g,b)) ;
 }
+
+int Text::getTextWidth()
+{
+    return (int)m_text.getLocalBounds().width ;
+}

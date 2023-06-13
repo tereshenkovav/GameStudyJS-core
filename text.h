@@ -27,7 +27,7 @@ public slots:
    void setText(QString str) ;
    void setSize(int size) ;
    void setColor(int r, int g, int b) ;
-
+   int getTextWidth() ;
 };
 
 #endif // TEXT_H
