@@ -71,6 +71,9 @@ signals:
     void sendLog(QString msg) ;
     void sendTitle(QString title) ;
 
+private slots:
+    void doSwitchSoundOn(bool ison) ;
+
 public slots:
     QScriptValue loadSprite(QString filename) ;    
     QScriptValue loadSpritePCX8bit(QString filename, bool usetransp=false) ;

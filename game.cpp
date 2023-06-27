@@ -152,6 +152,12 @@ bool Game::safeExecBoolScript(QString command)
     return true ;
 }
 
+void Game::doSwitchSoundOn(bool ison)
+{
+    for (int i=0; i<sounds.count(); i++)
+        sounds[i]->setOn(ison) ;
+}
+
 Game::Game(QString scriptfile, QObject *parent) : QObject(parent)
 {
     QFile file(scriptfile);
@@ -189,6 +195,7 @@ Game::Game(QString scriptfile, QObject *parent) : QObject(parent)
     newscript = "" ;
 
     sys = new QGameSystem(&engine) ;
+    connect(sys,SIGNAL(switchSoundOn(bool)),this,SLOT(doSwitchSoundOn(bool))) ;
     addObjectToEngine("game",this);
     addObjectToEngine("system",sys);
 
@@ -342,6 +349,7 @@ QScriptValue Game::loadSpritePCX8bit(QString filename, bool usetransp)
 QScriptValue Game::loadSound(QString filename)
 {
     Sound * snd = new Sound(sys->getFilenameByLanguageIfExist("sounds/"+filename),this);
+    snd->setOn(sys->isSoundOn()) ;
     sounds.append(snd);
 
     return engine.newQObject(snd) ;

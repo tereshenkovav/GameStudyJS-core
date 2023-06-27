@@ -15,6 +15,11 @@ void Sound::pauseOrResume()
         if (snd.getStatus()==snd.Playing) snd.pause() ;
 }
 
+void Sound::setOn(bool ison)
+{
+    snd.setVolume(ison?100.0f:0.0f) ;
+}
+
 void Sound::play()
 {
     snd.setPlayingOffset(sf::Time::Zero) ;

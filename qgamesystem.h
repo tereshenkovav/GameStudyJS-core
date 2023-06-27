@@ -40,6 +40,7 @@ signals:
     void writeMessage(QString msg) ;
     void writePair(QString name, QVariant value) ;
     void showCursor(bool showed) ;
+    void switchSoundOn(bool ison) ;
 
 public slots:
     void saveObject(QString filename, QScriptValue obj) ;
@@ -52,6 +53,8 @@ public slots:
     void setCurrentLanguage(QString lang) ;
     void switchCurrentLanguage() ;
     QString getCurrentLanguage() ;
+    void setSoundOn(bool ison) ;
+    bool isSoundOn() ;
 };
 
 #endif // QGAMESYSTEM_H

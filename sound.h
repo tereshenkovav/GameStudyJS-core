@@ -16,6 +16,7 @@ private:
 public:
    explicit Sound(QString filename, Game * game, QObject *parent = 0);
    void pauseOrResume() ;
+   void setOn(bool ison) ;
 
 signals:
 

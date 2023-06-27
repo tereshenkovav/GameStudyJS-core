@@ -19,6 +19,7 @@ QScriptValue json2script(QScriptEngine *engine, const QJsonValue & val) {
 
 QString currentlang="" ;
 QStringList languages ;
+bool soundon=true ;
 
 QGameSystem::QGameSystem(QScriptEngine *engine)
 {
@@ -168,6 +169,17 @@ void QGameSystem::switchCurrentLanguage()
 QString QGameSystem::getCurrentLanguage()
 {
     return currentlang ;
+}
+
+void QGameSystem::setSoundOn(bool ison)
+{
+    soundon = ison ;
+    emit switchSoundOn(soundon) ;
+}
+
+bool QGameSystem::isSoundOn()
+{
+    return soundon ;
 }
 
 TimerEvent::TimerEvent(QScriptEngine *engine, QString code, bool isonce)
