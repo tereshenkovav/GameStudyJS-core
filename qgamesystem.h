@@ -55,6 +55,10 @@ public slots:
     QString getCurrentLanguage() ;
     void setSoundOn(bool ison) ;
     bool isSoundOn() ;
+    void setDifficult(int code) ;
+    int getDifficult() const ;
+    void switchDifficult() ;
+    void setDifficultCount(int count) ;
 };
 
 #endif // QGAMESYSTEM_H

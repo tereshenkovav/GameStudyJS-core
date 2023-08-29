@@ -20,6 +20,8 @@ QScriptValue json2script(QScriptEngine *engine, const QJsonValue & val) {
 QString currentlang="" ;
 QStringList languages ;
 bool soundon=true ;
+int tekdifficult=0 ;
+int difficultcount=1 ;
 
 QGameSystem::QGameSystem(QScriptEngine *engine)
 {
@@ -180,6 +182,29 @@ void QGameSystem::setSoundOn(bool ison)
 bool QGameSystem::isSoundOn()
 {
     return soundon ;
+}
+
+void QGameSystem::setDifficult(int code)
+{
+    tekdifficult = code ;
+    if (tekdifficult<0) tekdifficult = 0 ;
+    if (tekdifficult>=difficultcount) tekdifficult = difficultcount-1 ;
+}
+
+int QGameSystem::getDifficult() const
+{
+    return tekdifficult ;
+}
+
+void QGameSystem::switchDifficult()
+{
+    tekdifficult++ ;
+    if (tekdifficult>=difficultcount) tekdifficult = 0 ;
+}
+
+void QGameSystem::setDifficultCount(int count)
+{
+    difficultcount = count ;
 }
 
 TimerEvent::TimerEvent(QScriptEngine *engine, QString code, bool isonce)
