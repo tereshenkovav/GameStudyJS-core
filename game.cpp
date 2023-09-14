@@ -256,6 +256,7 @@ bool Game::Render(sf::RenderTarget *render)
 
 bool Game::Frame(double dt)
 {
+    sys->update(dt) ;
     for (auto spr: sprites)
         spr->update(dt);
 

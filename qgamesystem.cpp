@@ -29,9 +29,7 @@ QGameSystem::QGameSystem(QScriptEngine *engine)
 }
 
 void QGameSystem::clearTimers()
-{
-    foreach(auto timer, timers)
-        delete timer ;
+{    
     timers.clear() ;
 }
 
@@ -129,21 +127,12 @@ QScriptValue QGameSystem::loadObject(QString filename)
 
 void QGameSystem::setTimeout(QString code, int ms)
 {
-    //QTimer::singleShot(ms,new TimerEvent(engine,code,true),SLOT(execCode())) ; old release
-    QTimer * timer = new QTimer(this) ;
-    timer->setSingleShot(true) ;
-    connect(timer,SIGNAL(timeout()),new TimerEvent(engine,code,true),SLOT(execCode())) ;
-    timer->start(ms) ;
-    timers.append(timer) ;
+    timers.append(TimerEvent(engine,code,((float)ms)/1000.0f,true)) ;
 }
 
 void QGameSystem::setInterval(QString code, int ms)
 {
-    QTimer * timer = new QTimer(this) ;
-    timer->setSingleShot(false) ;
-    connect(timer,SIGNAL(timeout()),new TimerEvent(engine,code,false),SLOT(execCode())) ;
-    timer->start(ms) ;
-    timers.append(timer) ;
+    timers.append(TimerEvent(engine,code,((float)ms)/1000.0f,false)) ;
 }
 
 void QGameSystem::setUsedLanguages(QScriptValue arr)
@@ -207,15 +196,26 @@ void QGameSystem::setDifficultCount(int count)
     difficultcount = count ;
 }
 
-TimerEvent::TimerEvent(QScriptEngine *engine, QString code, bool isonce)
+void QGameSystem::update(float dt)
+{
+    for (int i=0; i<timers.length(); i++)
+        timers[i].update(dt) ;
+}
+TimerEvent::TimerEvent(QScriptEngine * engine, QString code, float secs, bool isonce)
 {
     this->engine = engine ;
     this->code = code ;
     this->isonce = isonce ;
+    this->secs = secs ;
+    this->left = secs ;
 }
 
-void TimerEvent::execCode()
+void TimerEvent::update(float dt)
 {
-    engine->evaluate(code) ;
-    if (isonce) deleteLater() ;
+    if (left<=0) return ;
+    left-=dt ;
+    if (left<=0) {
+        engine->evaluate(code) ;
+        if (!isonce) left=secs ;
+    }
 }

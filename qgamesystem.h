@@ -4,21 +4,18 @@
 #include <QObject>
 #include <QScriptValue>
 #include <QScriptEngine>
-#include <QTimer>
 
-class TimerEvent: public QObject
+class TimerEvent
 {
-    Q_OBJECT
 public:
-    explicit TimerEvent(QScriptEngine * engine, QString code, bool isonce);
-
+    TimerEvent(QScriptEngine * engine, QString code, float secs, bool isonce);
+    void update(float dt) ;
 private:
-    QString code ;
     QScriptEngine * engine ;
+    QString code ;
     bool isonce ;
-
-public slots:
-    void execCode() ;
+    float left ;
+    float secs ;
 };
 
 class QGameSystem : public QObject
@@ -34,7 +31,7 @@ public:
 
 private:
     QScriptEngine * engine ;
-    QList<QTimer*> timers ;
+    QList<TimerEvent> timers ;
 
 signals:
     void writeMessage(QString msg) ;
@@ -59,6 +56,7 @@ public slots:
     int getDifficult() const ;
     void switchDifficult() ;
     void setDifficultCount(int count) ;
+    void update(float dt) ;
 };
 
 #endif // QGAMESYSTEM_H
