@@ -22,6 +22,7 @@ QStringList languages ;
 bool soundon=true ;
 int tekdifficult=0 ;
 int difficultcount=1 ;
+QString closehandlerscript="" ;
 
 QGameSystem::QGameSystem(QScriptEngine *engine)
 {
@@ -194,6 +195,16 @@ void QGameSystem::switchDifficult()
 void QGameSystem::setDifficultCount(int count)
 {
     difficultcount = count ;
+}
+
+void QGameSystem::setCloseHandlerScript(const QString &script)
+{
+    closehandlerscript = script ;
+}
+
+QString QGameSystem::getCloseHandlerScript() const
+{
+    return closehandlerscript ;
 }
 
 void QGameSystem::update(float dt)

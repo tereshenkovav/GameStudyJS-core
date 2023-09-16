@@ -56,6 +56,8 @@ public slots:
     int getDifficult() const ;
     void switchDifficult() ;
     void setDifficultCount(int count) ;
+    void setCloseHandlerScript(const QString & script) ;
+    QString getCloseHandlerScript() const ;
     void update(float dt) ;
 };
 
