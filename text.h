@@ -27,6 +27,7 @@ public slots:
    void setText(QString str) ;
    void setSize(int size) ;
    void setColor(int r, int g, int b) ;
+   bool isPointIn(int x, int y) const ;
    int getTextWidth() ;
 };
 

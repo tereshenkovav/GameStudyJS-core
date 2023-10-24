@@ -423,10 +423,19 @@ QScriptValue Game::createLine(int r, int g, int b)
     return engine.newQObject(sline) ;
 }
 
-QScriptValue Game::createRect(int r, int g, int b)
+QScriptValue Game::createRect(int r, int g, int b, int a)
 {
     Rect * srect = new Rect(this);
-    srect->setFillColor(r,g,b);
+    srect->setFillColor(r,g,b,a);
+    srect->setBorderColor(r,g,b,a);
+    rects.append(srect);
+    return engine.newQObject(srect) ;
+}
+
+QScriptValue Game::createTranspRect(int r, int g, int b)
+{
+    Rect * srect = new Rect(this);
+    srect->setFillColor(0,0,0,0);
     srect->setBorderColor(r,g,b);
     rects.append(srect);
     return engine.newQObject(srect) ;

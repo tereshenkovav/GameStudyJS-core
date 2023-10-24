@@ -47,3 +47,9 @@ int Text::getTextWidth()
 {
     return (int)m_text.getLocalBounds().width ;
 }
+
+bool Text::isPointIn(int x, int y) const
+{
+    return ((m_text.getPosition().x<x)&&(x<m_text.getPosition().x+m_text.getLocalBounds().width)&&
+            (m_text.getPosition().y<y)&&(y<m_text.getPosition().y+m_text.getLocalBounds().height)) ;
+}

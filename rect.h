@@ -20,8 +20,8 @@ signals:
 
 public slots:
    void drawTo(int x, int y, int w, int h) ;
-   void setFillColor(int r, int g, int b) ;
-   void setBorderColor(int r, int g, int b) ;
+   void setFillColor(int r, int g, int b, int a = 255) ;
+   void setBorderColor(int r, int g, int b, int a = 255) ;
    void setLineWidth(int w) ;
 } ;
 

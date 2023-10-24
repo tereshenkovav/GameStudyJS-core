@@ -16,14 +16,14 @@ void Rect::drawTo(int x, int y, int w, int h)
     game->RenderDrawable(rect) ;
 }
 
-void Rect::setFillColor(int r, int g, int b)
+void Rect::setFillColor(int r, int g, int b, int a)
 {
-    rect.setFillColor(sf::Color(r,g,b)) ;
+    rect.setFillColor(sf::Color(r,g,b,a)) ;
 }
 
-void Rect::setBorderColor(int r, int g, int b)
+void Rect::setBorderColor(int r, int g, int b, int a)
 {
-    rect.setFillColor(sf::Color(r,g,b)) ;
+    rect.setOutlineColor(sf::Color(r,g,b,a)) ;
 }
 
 void Rect::setLineWidth(int w)
