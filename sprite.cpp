@@ -23,6 +23,10 @@ Sprite::Sprite(Game *game, QObject *parent) : QObject(parent)
     fy=0 ;    
     contactmodel = ModelBox ;
     showborder = false ;
+    r=255 ;
+    g=255 ;
+    b=255 ;
+    alpha=255 ;
 
     line.setPrimitiveType(sf::LineStrip) ;
     line.resize(5);
@@ -149,9 +153,16 @@ void Sprite::setAngle(int a) {
 }
 
 void Sprite::setAlpha(int alpha) {
-    m_sprite.setColor(sf::Color(255,255,255,alpha));
+    this->alpha=alpha ;
+    m_sprite.setColor(sf::Color(r,g,b,alpha));
 }
 
+void Sprite::setColor(int r,int g,int b) {
+    this->r=r ;
+    this->g=g;
+    this->b=b;
+    m_sprite.setColor(sf::Color(r,g,b,alpha));
+}
 void Sprite::setHotSpot(int x, int y)
 {
     m_sprite.setOrigin(x,y);

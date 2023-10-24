@@ -20,6 +20,10 @@ protected:
     sf::Texture m_tex ;
     sf::Sprite   m_sprite;
     sf::VertexArray line;
+    int r ;
+    int g ;
+    int b ;
+    int alpha ;
 
     bool mirrhorz ;
     bool mirrvert ;
@@ -64,6 +68,7 @@ public slots:
     void setScaleY(int perc) ;
     void setAngle(int a) ;
     void setAlpha(int alpha) ;
+    void setColor(int r,int g,int b) ;
     void setHotSpot(int x,int y) ;
     virtual void setSmooth(bool smooth) ;
     void setContactModelBox() ;
