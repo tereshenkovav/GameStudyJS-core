@@ -270,16 +270,29 @@ void Sprite::setTag(const QString &tagname, const QScriptValue &tagvalue)
 
 void Sprite::convertPixelsInTexture(sf::Texture * tex, const QString &convertFunc) {
     sf::Image img =  tex->copyToImage() ;
-    for (int i=0; i<img.getSize().x; i++)
-        for (int j=0; j<img.getSize().y; j++) {
-            sf::Color c = img.getPixel(i,j) ;
-            QScriptValue newc = game->engine.evaluate(
-                        QString(convertFunc+"({r:%1,g:%2,b:%3,a:%4})").arg(c.r).arg(c.g).arg(c.b).arg(c.a)) ;
-            img.setPixel(i,j,sf::Color(newc.property("r").toInt32(),
-                                       newc.property("g").toInt32(),
-                                       newc.property("b").toInt32(),
-                                       newc.property("a").toInt32())) ;
-        }
+    if (convertFunc=="sys_gray") {
+        for (int i=0; i<img.getSize().x; i++)
+            for (int j=0; j<img.getSize().y; j++) {
+                sf::Color c = img.getPixel(i,j) ;
+                if (c.a>0) {
+                    short unsigned int gr = (c.r+c.g+c.b) / 3 ;
+                    img.setPixel(i,j,sf::Color(gr,gr,gr,c.a)) ;
+                }
+            }
+    }
+    else {
+        for (int i=0; i<img.getSize().x; i++)
+            for (int j=0; j<img.getSize().y; j++) {
+                sf::Color c = img.getPixel(i,j) ;
+                QScriptValue newc = game->engine.evaluate(
+                            QString(convertFunc+"({r:%1,g:%2,b:%3,a:%4})").arg(c.r).arg(c.g).arg(c.b).arg(c.a)) ;
+                img.setPixel(i,j,sf::Color(newc.property("r").toInt32(),
+                                           newc.property("g").toInt32(),
+                                           newc.property("b").toInt32(),
+                                           newc.property("a").toInt32())) ;
+            }
+    }
+
     tex->loadFromImage(img) ;
 }
 
