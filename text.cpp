@@ -15,9 +15,19 @@ Text::Text(QString fontname, Game *game, QObject *parent) : QObject(parent)
     iscentered = false ;
 }
 
-void Text::printTo(int x, int y)
+void Text::setXY(int x, int y)
 {
     m_text.setPosition(x-(iscentered?m_text.getLocalBounds().width/2:0),y) ;
+}
+
+void Text::printTo(int x, int y)
+{
+    setXY(x,y) ;
+    print() ;
+}
+
+void Text::print()
+{
     game->RenderDrawable(m_text) ;
 }
 

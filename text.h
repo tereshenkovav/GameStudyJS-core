@@ -22,7 +22,9 @@ public:
 signals:
 
 public slots:
+   void setXY(int x, int y) ;
    void printTo(int x, int y) ;
+   void print() ;
    void setAlignCenter() ;
    void setText(QString str) ;
    void setSize(int size) ;
