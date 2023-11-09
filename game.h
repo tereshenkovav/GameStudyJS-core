@@ -63,8 +63,6 @@ public:
     QString getNewScript() const ;
     QScriptValue getNewScriptArgs() const ;
 
-    void soundsPauseOrResume() ;
-
     static Game * createNoGame() ;
 
 signals:
@@ -97,6 +95,7 @@ public slots:
     int getFPS() const ;
     void resetTotalTime() ;
     void setBackgroundColor(int r, int g, int b) ;
+    void soundsPauseOrResume() ;
     void goToScript(QString scriptname, QScriptValue params) ;
 };
 
