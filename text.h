@@ -22,11 +22,14 @@ public:
 signals:
 
 public slots:
+   void setXY(int x, int y) ;
    void printTo(int x, int y) ;
+   void print() ;
    void setAlignCenter() ;
    void setText(QString str) ;
    void setSize(int size) ;
    void setColor(int r, int g, int b) ;
+   bool isPointIn(int x, int y) const ;
    int getTextWidth() ;
 };
 

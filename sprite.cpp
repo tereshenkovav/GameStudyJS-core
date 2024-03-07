@@ -23,6 +23,10 @@ Sprite::Sprite(Game *game, QObject *parent) : QObject(parent)
     fy=0 ;    
     contactmodel = ModelBox ;
     showborder = false ;
+    r=255 ;
+    g=255 ;
+    b=255 ;
+    alpha=255 ;
 
     line.setPrimitiveType(sf::LineStrip) ;
     line.resize(5);
@@ -149,9 +153,16 @@ void Sprite::setAngle(int a) {
 }
 
 void Sprite::setAlpha(int alpha) {
-    m_sprite.setColor(sf::Color(255,255,255,alpha));
+    this->alpha=alpha ;
+    m_sprite.setColor(sf::Color(r,g,b,alpha));
 }
 
+void Sprite::setColor(int r,int g,int b) {
+    this->r=r ;
+    this->g=g;
+    this->b=b;
+    m_sprite.setColor(sf::Color(r,g,b,alpha));
+}
 void Sprite::setHotSpot(int x, int y)
 {
     m_sprite.setOrigin(x,y);
@@ -259,16 +270,29 @@ void Sprite::setTag(const QString &tagname, const QScriptValue &tagvalue)
 
 void Sprite::convertPixelsInTexture(sf::Texture * tex, const QString &convertFunc) {
     sf::Image img =  tex->copyToImage() ;
-    for (int i=0; i<img.getSize().x; i++)
-        for (int j=0; j<img.getSize().y; j++) {
-            sf::Color c = img.getPixel(i,j) ;
-            QScriptValue newc = game->engine.evaluate(
-                        QString(convertFunc+"({r:%1,g:%2,b:%3,a:%4})").arg(c.r).arg(c.g).arg(c.b).arg(c.a)) ;
-            img.setPixel(i,j,sf::Color(newc.property("r").toInt32(),
-                                       newc.property("g").toInt32(),
-                                       newc.property("b").toInt32(),
-                                       newc.property("a").toInt32())) ;
-        }
+    if (convertFunc=="sys_gray") {
+        for (int i=0; i<img.getSize().x; i++)
+            for (int j=0; j<img.getSize().y; j++) {
+                sf::Color c = img.getPixel(i,j) ;
+                if (c.a>0) {
+                    short unsigned int gr = (c.r+c.g+c.b) / 3 ;
+                    img.setPixel(i,j,sf::Color(gr,gr,gr,c.a)) ;
+                }
+            }
+    }
+    else {
+        for (int i=0; i<img.getSize().x; i++)
+            for (int j=0; j<img.getSize().y; j++) {
+                sf::Color c = img.getPixel(i,j) ;
+                QScriptValue newc = game->engine.evaluate(
+                            QString(convertFunc+"({r:%1,g:%2,b:%3,a:%4})").arg(c.r).arg(c.g).arg(c.b).arg(c.a)) ;
+                img.setPixel(i,j,sf::Color(newc.property("r").toInt32(),
+                                           newc.property("g").toInt32(),
+                                           newc.property("b").toInt32(),
+                                           newc.property("a").toInt32())) ;
+            }
+    }
+
     tex->loadFromImage(img) ;
 }
 

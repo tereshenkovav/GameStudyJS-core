@@ -63,8 +63,6 @@ public:
     QString getNewScript() const ;
     QScriptValue getNewScriptArgs() const ;
 
-    void soundsPauseOrResume() ;
-
     static Game * createNoGame() ;
 
 signals:
@@ -85,7 +83,8 @@ public slots:
     QScriptValue loadAnimationPCX8bit(QString filename, int w, int h, int framecount, int fps, int usetransp=false) ;
     QScriptValue loadAnimationPCX8bit(QString filename, int framecount, int fps, int usetransp=false) ;
     QScriptValue createLine(int r, int g, int b) ;
-    QScriptValue createRect(int r, int g, int b) ;
+    QScriptValue createRect(int r, int g, int b, int a = 255) ;
+    QScriptValue createTranspRect(int r, int g, int b) ;
     bool isKeyDown(int keycode) ;
     bool isOneOfKeysDown(QScriptValue arr) ;
     QScriptValue getMousePos() const ;
@@ -96,6 +95,7 @@ public slots:
     int getFPS() const ;
     void resetTotalTime() ;
     void setBackgroundColor(int r, int g, int b) ;
+    void soundsPauseOrResume() ;
     void goToScript(QString scriptname, QScriptValue params) ;
 };
 
