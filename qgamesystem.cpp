@@ -20,6 +20,8 @@ QScriptValue json2script(QScriptEngine *engine, const QJsonValue & val) {
 QString currentlang="" ;
 QStringList languages ;
 bool soundon=true ;
+bool fullscreen=false ;
+bool oldfullscreen=false ;
 int tekdifficult=0 ;
 int difficultcount=1 ;
 QString closehandlerscript="" ;
@@ -174,6 +176,16 @@ bool QGameSystem::isSoundOn()
     return soundon ;
 }
 
+void QGameSystem::switchFullScreen()
+{
+    fullscreen=!fullscreen ;
+}
+
+bool QGameSystem::isFullScreen() const
+{
+    return fullscreen ;
+}
+
 void QGameSystem::setDifficult(int code)
 {
     tekdifficult = code ;
@@ -229,4 +241,17 @@ void TimerEvent::update(float dt)
         engine->evaluate(code) ;
         if (!isonce) left=secs ;
     }
+}
+
+bool isFullScreen() {
+    return fullscreen ;
+}
+
+bool onceTestFullScreenSwitch() {
+    if (oldfullscreen!=fullscreen) {
+        oldfullscreen = fullscreen ;
+        return true ;
+    }
+    else
+        return false ;
 }

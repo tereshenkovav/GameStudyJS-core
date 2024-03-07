@@ -52,6 +52,8 @@ public slots:
     QString getCurrentLanguage() ;
     void setSoundOn(bool ison) ;
     bool isSoundOn() ;
+    void switchFullScreen() ;
+    bool isFullScreen() const ;
     void setDifficult(int code) ;
     int getDifficult() const ;
     void switchDifficult() ;
@@ -60,5 +62,8 @@ public slots:
     QString getCloseHandlerScript() const ;
     void update(float dt) ;
 };
+
+bool isFullScreen() ;
+bool onceTestFullScreenSwitch() ;
 
 #endif // QGAMESYSTEM_H
