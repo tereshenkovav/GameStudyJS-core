@@ -446,6 +446,11 @@ bool Game::isKeyDown(int keycode)
     return keys.contains(keycode) ;
 }
 
+int Game::getKeyDown()
+{
+    if (keys.count()==0) return -1 ; else return keys.values()[0] ;
+}
+
 bool Game::isOneOfKeysDown(QScriptValue arr)
 {
     if (arr.isArray())

@@ -86,6 +86,7 @@ public slots:
     QScriptValue createRect(int r, int g, int b, int a = 255) ;
     QScriptValue createTranspRect(int r, int g, int b) ;
     bool isKeyDown(int keycode) ;
+    int getKeyDown() ;
     bool isOneOfKeysDown(QScriptValue arr) ;
     QScriptValue getMousePos() const ;
     bool isLeftButtonClicked() ;
