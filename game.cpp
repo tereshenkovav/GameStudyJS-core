@@ -367,6 +367,16 @@ QScriptValue Game::loadText(QString fontname, QString text, int size)
     return engine.newQObject(stext) ;
 }
 
+QScriptValue Game::loadPixelText(QString fontfile, QString text, float scale)
+{
+    PixelText * ptext = new PixelText(fontfile,this);
+    ptext->setText(text);
+    ptext->setScale(scale);
+    //texts.append(stext);
+
+    return engine.newQObject(ptext) ;
+}
+
 QScriptValue Game::loadAnimationFromFiles(QScriptValue arr, int fps)
 {
     if (arr.isArray()) {

@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include "sprite.h"
 #include "text.h"
+#include "pixeltext.h"
 #include "line.h"
 #include "rect.h"
 #include "sound.h"
@@ -77,6 +78,7 @@ public slots:
     QScriptValue loadSpritePCX8bit(QString filename, bool usetransp=false) ;
     QScriptValue loadSound(QString filename) ;
     QScriptValue loadText(QString fontname, QString text, int size) ;
+    QScriptValue loadPixelText(QString fontfile, QString text, float scale) ;
     QScriptValue loadAnimationFromFiles(QScriptValue arr, int fps) ;
     QScriptValue loadAnimation(QString filename, int w, int h, int framecount, int fps) ;
     QScriptValue loadAnimation(QString filename, int framecount, int fps) ;
