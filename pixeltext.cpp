@@ -21,7 +21,16 @@ PixelText::PixelText(QString fontfile, Game *game, QObject *parent) : QObject(pa
     if (file.exists())
         if (file.open(QIODevice::ReadOnly)) {
             QByteArray chars = file.readAll() ;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
             pixelmap = QBitArray::fromBits(chars.data(),chars.length()*8) ;
+#else
+            pixelmap.resize(chars.length()*8) ;
+            for (int i=0; i<chars.length(); i++) {
+                unsigned char cc = (unsigned char)chars.data()[i] ;
+                for (int j=0; j<8; j++)
+                    pixelmap.setBit(i*8+j,((cc>>j)&(0x01))==0x01) ;
+            }
+#endif
             for (int i=0; i<256; i++) {
                 QPair<int,int> sf(0,0) ;
                 if (i==32) {
